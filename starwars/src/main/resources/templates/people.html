@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Star Wars - People</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        a.sort-link {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        a.sort-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/people}" style="text-decoration: underline; font-weight: bold;">View People</a> |
+    <a th:href="@{/starships}">View Starships</a>
+</p>
+
+<h1>Star Wars Characters</h1>
+
+<p>Sort by:
+    <span th:each="key, iterStat : ${sortKeys}">
+        <a th:href="@{/people(sort=${key}, order=${(sort == key and order == 'asc') ? 'desc' : 'asc'})}">
+            <span th:text="${key}"></span>
+            <span th:text="${sort == key ? (order == 'asc' ? '↑' : '↓') : ''}"></span>
+        </a>
+        <span th:if="${!iterStat.last}"> | </span>
+    </span>
+</p>
+
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Birth Year</th>
+        <th>Gender</th>
+        <th>Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="person : ${people}">
+        <td th:text="${person.name}">Name</td>
+        <td th:text="${person.birthYear}">Birth Year</td>
+        <td th:text="${person.gender}">Gender</td>
+        <td th:text="${person.created}">Created</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

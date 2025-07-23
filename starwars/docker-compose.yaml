@@ -1,0 +1,7 @@
+services:
+  starwars-app:
+    build: .
+    container_name: starwars-app
+    ports:
+      - "6969:6969"
+    image: starwars-app
